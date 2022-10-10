@@ -5,7 +5,7 @@ const { Schema } = mongoose
 
 //Colocar opção para inserir imagem no projeto mobile
 
-const TicketSchema = new Schema(
+const ticketSchema = new Schema(
   {
     userId: mongoose.ObjectId,
     name: String,
@@ -16,6 +16,6 @@ const TicketSchema = new Schema(
   }
 )
 
-const Photo = mongoose.model('Photo', photoSchema)
+const Ticket = mongoose.model('Ticket', ticketSchema)
 
-module.exports = Photo
+module.exports = Ticket
