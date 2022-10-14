@@ -26,11 +26,47 @@ const insertPhoto = async (req, res) => {
     res.status(422).json({
       errors: ['Houve um problema, por favor tente novamente mais tarde']
     })
+    return
   }
 
   res.status(201).json(newTicket)
 }
 
+//Remove a photo from DB
+const deletePhoto = async (req, res) => {
+  const { id } = req.params
+
+  const reqUser = req.user
+
+  try {
+    const ticket = await Ticket.findById(mongoose.Types.ObjectId(id))
+
+    //Check if ticket exists
+
+    if (!ticket) {
+      res.status(404).json({ errors: ['Ingresso não encontrado!.'] })
+      return
+    }
+
+    //Check if ticket belongs to user
+    if (!ticket.userId.equals(reqUser._id)) {
+      res.status(422).json({
+        errors: ['Ocorreu um erro, por favor tente novamente mais tarde.']
+      })
+    }
+
+    await Ticket.findByIdAndDelete(ticket._id)
+
+    res
+      .status(200)
+      .json({ id: ticket._id, message: 'Ingresso excluido com sucesso.' })
+  } catch (error) {
+    res.status(404).json({ errors: ['Ingresso não encontrado!.'] })
+    return
+  }
+}
+
 module.exports = {
-  insertPhoto
+  insertPhoto,
+  deletePhoto
 }
