@@ -75,8 +75,99 @@ const getAllTickets = async (req, res) => {
   return res.status(200).json(tickets)
 }
 
+//Get user tickets
+const getUserTickets = async (req, res) => {
+  const { id } = req.params
+
+  const tickets = await Ticket.find({ userId: id })
+    .sort([['createdAt', -1]])
+    .exec()
+
+  return res.status(200).json(tickets)
+}
+
+//Get ticket by id
+const getTicketById = async (req, res) => {
+  const { id } = req.params
+
+  const ticket = await Ticket.findById(mongoose.Types.ObjectId(id))
+
+  //check if ticket exists
+  if (!ticket) {
+    res.status(404).json({ errors: ['Ingresso não encontrado.'] })
+    return
+  }
+}
+
+//Update a ticket
+const updateTicket = async (req, res) => {
+  const { id } = req.params
+  const { title } = req.body
+
+  const reqUser = req.user
+
+  const ticket = await Ticket.findById(id)
+
+  //Check if ticket exists
+  if (!ticket) {
+    res.status(404).json({ errors: ['Foto não encontrada'] })
+    return
+  }
+
+  // Check if photo belongs to user
+  if (!ticket.userId.equals(reqUser._id)) {
+    res.status(422).json({
+      errors: ['Ocorreu um erro, por favor tente novamente mais tarde']
+    })
+    return
+  }
+
+  if (title) {
+    ticket.title = title
+  }
+
+  await ticket.save()
+
+  res.status(200).json({ ticket, message: 'Ingresso atualizado com sucesso!' })
+}
+
+//Search tickets by title
+const searchTickets = async (req, res) => {
+  const { q } = req.query
+
+  const tickets = await Ticket.find({ title: new RegExp(q, 'i') }).exec()
+
+  res.status(200).json(tickets)
+}
+
+//Check a ticket
+const ticketChecked = async (req, res) => {
+  const { id } = req.params
+  const { checked } = req.body
+
+  const ticket = await Ticket.findById(id)
+
+  if (!ticket) {
+    res.status(404).json({ errors: ['Ingresso não encontrado.'] })
+    return
+  }
+
+  if (checked === true) {
+    return res.status(404).json({ errors: ['Ingresso não encontrado.'] })
+  }
+
+  await ticket.save()
+
+  res.status(200).json(ticket)
+}
+
 module.exports = {
   insertPhoto,
   deletePhoto,
-  getAllTickets
+  getAllTickets,
+  getUserTickets,
+  getTicketById,
+  updateTicket,
+  searchTickets,
+  ticketChecked
 }

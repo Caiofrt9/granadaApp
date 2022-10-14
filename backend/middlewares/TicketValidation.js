@@ -1,4 +1,5 @@
 const { body } = require('express-validator')
+const Ticket = require('../models/Ticket')
 
 const ticketInsertValidation = () => {
   return [
@@ -20,6 +21,17 @@ const ticketInsertValidation = () => {
   ]
 }
 
+const photoUpdateValidation = () => {
+  return [
+    body('title')
+      .isString()
+      .withMessage('O nome é obrigatório')
+      .isLength({ min: 3 })
+      .withMessage('O nome precisa ter no minimo 3 caracteres')
+  ]
+}
+
 module.exports = {
-  ticketInsertValidation
+  ticketInsertValidation,
+  photoUpdateValidation
 }
