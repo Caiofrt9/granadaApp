@@ -2,7 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 //Controller
-const { insertPhoto, deletePhoto } = require('../controllers/TicketController')
+const {
+  insertPhoto,
+  deletePhoto,
+  getAllTickets
+} = require('../controllers/TicketController')
 
 //Middlewares
 const { ticketInsertValidation } = require('../middlewares/TicketValidation')
@@ -20,5 +24,6 @@ router.post(
   insertPhoto
 )
 router.delete('/:id', authGuard, deletePhoto)
+router.get('/', authGuard, getAllTickets)
 
 module.exports = router

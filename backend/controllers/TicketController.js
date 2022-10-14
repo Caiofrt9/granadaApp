@@ -32,7 +32,7 @@ const insertPhoto = async (req, res) => {
   res.status(201).json(newTicket)
 }
 
-//Remove a photo from DB
+//Remove a ticket from DB
 const deletePhoto = async (req, res) => {
   const { id } = req.params
 
@@ -66,7 +66,17 @@ const deletePhoto = async (req, res) => {
   }
 }
 
+//Get all tickects
+const getAllTickets = async (req, res) => {
+  const tickets = await Ticket.find({})
+    .sort([['createdAt', -1]])
+    .exec()
+
+  return res.status(200).json(tickets)
+}
+
 module.exports = {
   insertPhoto,
-  deletePhoto
+  deletePhoto,
+  getAllTickets
 }
