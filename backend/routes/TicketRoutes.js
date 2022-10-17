@@ -37,6 +37,6 @@ router.get('/user/:id', authGuard, getUserTickets)
 router.get('/search', authGuard, searchTickets)
 router.get('/:id', authGuard, getTicketById)
 router.put('/:id', authGuard, photoUpdateValidation(), validate, updateTicket)
-router.put('/:id/checked', authGuard, validate, ticketChecked)
+router.put('/id/:checked', authGuard, validate, ticketChecked)
 
 module.exports = router

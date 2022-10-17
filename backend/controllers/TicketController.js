@@ -152,13 +152,13 @@ const ticketChecked = async (req, res) => {
     return
   }
 
-  if (checked === true) {
-    return res.status(404).json({ errors: ['Ingresso não encontrado.'] })
+  if (checked === false) {
+    return (checked = true)
   }
 
   await ticket.save()
 
-  res.status(200).json(ticket)
+  res.status(200).json({ ticket, message: 'Ingresso verificado com sucesso!' })
 }
 
 module.exports = {
