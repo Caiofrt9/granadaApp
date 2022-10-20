@@ -1,10 +1,11 @@
 #login,
 #register {
-  border: 1px solid #363636;
+  border: 1px solid #109a4c;
   backgroud-color: #000;
   padding: 1.5em 2em;
   max-width: 33%;
   margin: 2.5em auto;
+  border-radius: 15px;
 }
 
 #login h2,

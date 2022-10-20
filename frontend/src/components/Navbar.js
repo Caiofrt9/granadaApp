@@ -28,12 +28,12 @@ const Navbar = () => {
 
   const [query, setQuery] = useState('')
 
-  // const handleLogout = () => {
-  //   dispatch(logout())
-  //   dispatch(reset())
+  const handleLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
 
-  //   navigate('/login')
-  // }
+    navigate('/login')
+  }
 
   const handleSearch = e => {
     e.preventDefault()
@@ -77,7 +77,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <span onClick={'handleLogout'}>Sair</span>
+              <span onClick={handleLogout}>Sair</span>
             </li>
           </>
         ) : (
