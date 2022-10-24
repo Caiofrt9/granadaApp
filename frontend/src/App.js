@@ -7,13 +7,14 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
 
 //Pages
-import Home from './pages/Auth/Login'
+import Home from './pages/Home/Home'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 
 //Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import EditProfile from './pages/EditProfile/EditProfile'
 
 function App() {
   const { auth, loading } = useAuth()
@@ -35,16 +36,29 @@ function App() {
               element={auth ? <Home /> : <Navigate to="/login" />}
             />
             <Route
+              path="/profile"
+              element={auth ? <EditProfile /> : <Navigate to="/login" />}
+            />
+            {/* <Route
+              path="/users/:id"
+              element={auth ? <Profile /> : <Navigate to="/login" />}
+            /> */}
+            {/* <Route
+              path="/search"
+              element={auth ? <Search /> : <Navigate to="/login" />}
+            /> */}
+            <Route
               path="/login"
-              element={!auth ? <Home /> : <Navigate to="/" />}
+              element={!auth ? <Login /> : <Navigate to="/" />}
             />
             <Route
-              path="/register"
+              path="register"
               element={!auth ? <Register /> : <Navigate to="/" />}
             />
+            {/* <Route path="photos/:id" element={<Photo />} /> */}
           </Routes>
-          <Footer />
         </div>
+        <Footer />
       </BrowserRouter>
     </div>
   )
