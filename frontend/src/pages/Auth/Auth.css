@@ -1,7 +1,7 @@
 #login,
 #register {
-  border: 1px solid #109a4c;
-  backgroud-color: #000;
+  border: 1px solid #363636;
+  backgroud-color: #fafa;
   padding: 1.5em 2em;
   max-width: 33%;
   margin: 2.5em auto;
@@ -36,5 +36,5 @@
 #login p a,
 #register p a {
   font-weight: bold;
-  color: #0094f6;
+  color: #de3171;
 }

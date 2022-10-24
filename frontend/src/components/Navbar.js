@@ -46,7 +46,7 @@ const Navbar = () => {
   return (
     <nav id="nav">
       <Link to="/">
-        <h2>ReactGram</h2>
+        <h2>Granada</h2>
       </Link>
       <form id="search-form" onSubmit={handleSearch}>
         <BsSearch />
