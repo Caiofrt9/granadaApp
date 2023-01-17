@@ -1,14 +1,14 @@
 import './Auth.css'
 
-//Components
+// Components
 import { Link } from 'react-router-dom'
 import Message from '../../components/Message'
 
-//Hooks
+// Hooks
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-//Redux
+// Redux
 import { login, reset } from '../../slices/authSlice'
 
 const Login = () => {
@@ -27,33 +27,35 @@ const Login = () => {
       password
     }
 
+    console.log(user)
+
     dispatch(login(user))
   }
 
-  //Clean all auth states
+  // Clean all auth states
   useEffect(() => {
     dispatch(reset())
-  }, dispatch)
+  }, [dispatch])
 
   return (
     <div id="login">
-      <h2>GranadaApp</h2>
-      <p className="subtitle">Faça o login para ver o que há de novo</p>
+      <h2>ReactGram</h2>
+      <p className="subtitle">Faça o login para ver o que há de novo.</p>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="E-mail"
           onChange={e => setEmail(e.target.value)}
-          value={email || ''}
+          value={email}
         />
         <input
           type="password"
           placeholder="Senha"
           onChange={e => setPassword(e.target.value)}
-          value={password || ''}
+          value={password}
         />
         {!loading && <input type="submit" value="Entrar" />}
-        {loading && <input type="submit" value="Aguarde..." disable />}
+        {loading && <input type="submit" disabled value="Aguarde..." />}
         {error && <Message msg={error} type="error" />}
       </form>
       <p>

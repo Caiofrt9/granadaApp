@@ -19,7 +19,7 @@ const {
   photoUpdateValidation
 } = require('../middlewares/TicketValidation')
 const authGuard = require('../middlewares/authGuard')
-const validate = require('../middlewares/handleValidation')
+const validate = require('../middlewares/handleValidations')
 const { imageUpload } = require('../middlewares/imageUpload')
 
 //Routes

@@ -1,8 +1,8 @@
 const multer = require('multer')
 const path = require('path')
 
-//Destination to store image
-const imageStore = multer.diskStorage({
+// Destination to store image
+const imageStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     let folder = ''
 
@@ -11,24 +11,20 @@ const imageStore = multer.diskStorage({
     } else if (req.baseUrl.includes('photos')) {
       folder = 'photos'
     }
-
     cb(null, `uploads/${folder}/`)
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)) //
+    cb(null, Date.now() + path.extname(file.originalname))
   }
-  //Install uiuId for project
 })
 
 const imageUpload = multer({
-  storage: imageStore,
+  storage: imageStorage,
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(png|jpg)$/)) {
-      //upload only png and jp formats
-
-      return cb(new Error('Por favor, envie apenas png ou jpg'))
+      // upload only png and jpg format
+      return cb(new Error('Por favor, envie apenas png ou jpg!'))
     }
-
     cb(undefined, true)
   }
 })

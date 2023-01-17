@@ -1,23 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import thunk from 'redux-thunk'
 import authService from '../services/authService'
 
-const user = JSON.parse(localStorage.getItem('use'))
+const user = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
   user: user ? user : null,
   error: false,
-  sucess: false,
+  success: false,
   loading: false
 }
 
-// Register an user and sign in
+// Register a user and sign in
 export const register = createAsyncThunk(
   'auth/register',
   async (user, thunkAPI) => {
     const data = await authService.register(user)
 
-    //Check for errors
+    // Check for errors
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0])
     }
@@ -26,16 +25,16 @@ export const register = createAsyncThunk(
   }
 )
 
-//Logout an user
+// Logout a user
 export const logout = createAsyncThunk('auth/logout', async () => {
   await authService.logout()
 })
 
-// Sign in an user
+// Sing in a user
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   const data = await authService.login(user)
 
-  //Check for errors
+  // Check for errors
   if (data.errors) {
     return thunkAPI.rejectWithValue(data.errors[0])
   }
@@ -50,19 +49,18 @@ export const authSlice = createSlice({
     reset: state => {
       state.loading = false
       state.error = false
-      state.sucess = false
+      state.success = false
     }
   },
-
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => {
         state.loading = true
-        state.error = false
+        state.error = null
       })
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false
-        state.sucess = true
+        state.success = true
         state.error = null
         state.user = action.payload
       })
@@ -71,19 +69,19 @@ export const authSlice = createSlice({
         state.error = action.payload
         state.user = null
       })
-      .addCase(logout.fulfilled, (state, action) => {
-        state.loading = false
-        state.sucess = true
-        state.error = null
+      .addCase(logout.fulfilled, state => {
         state.user = null
+        state.loading = false
+        state.success = true
+        state.error = null
       })
       .addCase(login.pending, state => {
         state.loading = true
-        state.error = false
+        state.error = null
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false
-        state.sucess = true
+        state.success = true
         state.error = null
         state.user = action.payload
       })
