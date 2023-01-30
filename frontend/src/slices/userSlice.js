@@ -17,8 +17,6 @@ export const profile = createAsyncThunk(
 
     const data = await userService.profile(user, token)
 
-    console.log(data)
-
     return data
   }
 )
@@ -48,7 +46,7 @@ export const getUserDetails = createAsyncThunk(
   async (id, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token
 
-    const data = await userService.getUserDetails(id, token)
+    const data = await userService.getUserDetails(id)
 
     console.log(data)
 
@@ -68,7 +66,7 @@ export const userSlice = createSlice({
     builder
       .addCase(profile.pending, state => {
         state.loading = true
-        state.error = null
+        state.error = false
       })
       .addCase(profile.fulfilled, (state, action) => {
         state.loading = false
