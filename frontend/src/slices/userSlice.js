@@ -33,9 +33,6 @@ export const updateProfile = createAsyncThunk(
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0])
     }
-
-    console.log(data)
-
     return data
   }
 )
@@ -76,7 +73,7 @@ export const userSlice = createSlice({
       })
       .addCase(updateProfile.pending, state => {
         state.loading = true
-        state.error = null
+        state.error = false
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
         state.loading = false
@@ -88,7 +85,7 @@ export const userSlice = createSlice({
       .addCase(updateProfile.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
-        state.user = null
+        state.user = {}
       })
       .addCase(getUserDetails.pending, state => {
         state.loading = true
