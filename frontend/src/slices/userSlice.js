@@ -89,7 +89,7 @@ export const userSlice = createSlice({
       })
       .addCase(getUserDetails.pending, state => {
         state.loading = true
-        state.error = null
+        state.error = false
       })
       .addCase(getUserDetails.fulfilled, (state, action) => {
         state.loading = false
