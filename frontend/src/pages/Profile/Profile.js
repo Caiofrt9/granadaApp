@@ -36,8 +36,8 @@ const Profile = () => {
     message: messagePhoto
   } = useSelector(state => state.photo)
 
-  const [title, setTitle] = useState()
-  const [image, setImage] = useState()
+  const [title, setTitle] = useState('')
+  const [image, setImage] = useState('')
 
   const [editId, setEditId] = useState()
   const [editImage, setEditImage] = useState()

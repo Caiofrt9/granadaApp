@@ -15,7 +15,7 @@ import Register from './pages/Auth/Register'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import EditProfile from './pages/EditProfile/EditProfile'
-import Profile from './pages/EditProfile/EditProfile'
+import Profile from './pages/Profile/Profile'
 
 function App() {
   const { auth, loading } = useAuth()
